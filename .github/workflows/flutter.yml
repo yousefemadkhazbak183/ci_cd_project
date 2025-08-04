@@ -50,4 +50,6 @@ jobs:
           appId: ${{secrets.APP_ID_FIREBASE}}
           serviceCredentialsFileContent: ${{secrets.GOOGLE_APPLICATION_CREDENTINELS}}
           groups: testers
+
           file: build/app/outputs/flutter-apk/app-release.apk
+          debug: true
