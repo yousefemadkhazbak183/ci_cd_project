@@ -44,4 +44,8 @@ jobs:
         uses: actions/upload-artifact@v4  # Updated to v4
         with:
           name: release-apk
+<<<<<<< HEAD
           path: build/app/outputs/flutter-apk/app-release.apk
+=======
+          path: build/app/outputs/flutter-apk/app-release.apk
+>>>>>>> 7a0953c2e72f0d23560645ffea7c603fe58fe47f
