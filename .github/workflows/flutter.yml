@@ -4,11 +4,11 @@ on:
   push:
     branches:
       - master
-      - puplish-to-firebase # Changed from main to master
+      - puplish-to-fastlane # Changed from main to master
   pull_request:
     branches:
       - master
-      - puplish-to-firebase # Changed from main to master
+      - puplish-to-fastlane # Changed from main to master
 
 jobs:
   build:
@@ -38,18 +38,16 @@ jobs:
 
       - name: Run tests
         run: flutter test
-
-      - name: Build APK
-        run: flutter build apk --release
-      - run: ls build/app/outputs/flutter-apk
-
-      - name: Upload artifact to Firebase App Distribution
-        uses: wzieba/Firebase-Distribution-Github-Action@v1
-
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
         with:
-          appId: ${{secrets.APP_ID_FIREBASE}}
-          serviceCredentialsFileContent: ${{secrets.GOOGLE_APPLICATION_CREDENTINELS}}
-          groups: testers
-
-          file: build/app/outputs/flutter-apk/app-release.apk
-          debug: true
+          ruby-version: "3.3.9"
+          bundler-cache: true
+          working-directory: android
+      - name: Deploy to Firebase via FastLane
+        working-directory: android
+        env:
+          FIREBASE_APP_ID: ${{secrets.APP_ID_FIREBASE}}
+          FIREBASE_CLI_TOKEN: ${{secrets.FIRBASE_CLI_TOKEN}}
+        run: |
+          bundle exec fastlane deploy_to_firebase
