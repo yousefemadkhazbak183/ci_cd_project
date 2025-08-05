@@ -17,6 +17,17 @@ platform :android do
 
 
     )
+    match(type: "appstore", 
+      
+        
+      app_identifier: ENV["APP_ID_FIREBASE"],
+      readonly: false,
+      force: true,
+      verbose: true,
+      api_key_path: "#{FIRBASE_CLI_TOKEN}",
+      clone_branch_directly: true,
+      shallow_clone: true
+)
   
 
   
